@@ -211,7 +211,7 @@ public class InvoiceApp {
 
         InvoiceApp.printReceipt(descriptionList, qtyList, priceList);
 
-        System.out.println("Thank you for shopping with us!");
+        System.out.println("Thank you for shopping with us!!!!!!!!!!!!!!!!!!!!!!!");
 
     } // end of main method
 
