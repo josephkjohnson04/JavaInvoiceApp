@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Represents an Invoice Calculator.
  *
- * @author <your group programmer names goes here> joe
+ * @author <your group programmer names goes here> Jace & Joe
  * @version 1.0 <update this to version 2>
  * @link <Your GitHub Repository URL goes here>
  */
@@ -131,10 +131,27 @@ public class InvoiceApp {
 
     /**
      * Print the user's receipt
+     *
      * @param descriptionList All descriptions for items purchased
-     * @param qtyList All qualities for items purchased
-     * @param priceList All prices for items purchased
+     * @param qtyList         All qualities for items purchased
+     * @param priceList       All prices for items purchased
      */
+    private static double getDiscount(double discountPercent)
+        if (subTotal >= 50.0) {
+            discountPercent = 0.25;
+        } else if (subTotal >= 40.0) {
+            discountPercent = 0.20;
+        } else if (subTotal >= 30.0) {
+            discountPercent = 0.15;
+        }  else if (subTotal >= 20.0){
+            discountPercent = 0.10;
+        }   else if (subTotal >= 10.0){
+            discountPercent = 0.05;
+        } else {
+            discountPercent = 0.00;
+        }
+
+
     private static void printReceipt(List<String> descriptionList, List<Integer> qtyList, List<Double> priceList) {
         String description = "?";
         int qty = 0;
@@ -157,6 +174,8 @@ public class InvoiceApp {
 
             System.out.println();
             System.out.printf("%-20s  %3d  @  $%,6.2f = $%,8.2f\n", description, qty, price, subTotal);
+
+            discount = getDiscount;
 
             receiptTotal += subTotal;
 
@@ -211,7 +230,7 @@ public class InvoiceApp {
 
         InvoiceApp.printReceipt(descriptionList, qtyList, priceList);
 
-        System.out.println("Thank you for shopping with us!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println("Thank you for shopping with us!");
 
     } // end of main method
 
