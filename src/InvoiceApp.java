@@ -136,21 +136,23 @@ public class InvoiceApp {
      * @param qtyList         All qualities for items purchased
      * @param priceList       All prices for items purchased
      */
-    private static double getDiscount(double discountPercent)
+    private static double getDiscountPercent(double subTotal) {
+        double discountPercent;
         if (subTotal >= 50.0) {
             discountPercent = 0.25;
         } else if (subTotal >= 40.0) {
             discountPercent = 0.20;
         } else if (subTotal >= 30.0) {
             discountPercent = 0.15;
-        }  else if (subTotal >= 20.0){
+        } else if (subTotal >= 20.0) {
             discountPercent = 0.10;
-        }   else if (subTotal >= 10.0){
+        } else if (subTotal >= 10.0) {
             discountPercent = 0.05;
         } else {
             discountPercent = 0.00;
         }
-
+        return discountPercent;
+    }
 
     private static void printReceipt(List<String> descriptionList, List<Integer> qtyList, List<Double> priceList) {
         String description = "?";
@@ -159,6 +161,7 @@ public class InvoiceApp {
 
         double subTotal = 0.0;
         double receiptTotal = 0.0;
+        double savingsTotal = 0.0;
 
         System.out.println(InvoiceApp.DOUBLE_DASH_LINE);
         System.out.println("Customer Receipt");
@@ -175,11 +178,21 @@ public class InvoiceApp {
             System.out.println();
             System.out.printf("%-20s  %3d  @  $%,6.2f = $%,8.2f\n", description, qty, price, subTotal);
 
-            discount = getDiscount;
+            double discountPercent = getDiscountPercent(subTotal);
+
+            if (discountPercent > 0.0) {
+                double discountAmount = subTotal * discountPercent;
+                System.out.printf("Discount: %.0f%% = -$%,.2f\n", discountPercent * 100, discountAmount);
+                savingsTotal += discountAmount;
+            }
 
             receiptTotal += subTotal;
 
         } // end of for lop
+
+        if (savingsTotal > 0.0) {
+            System.out.printf("Total Savings: $%,.2f\n", savingsTotal);
+        }
 
         System.out.println(InvoiceApp.SINGLE_DASH_LINE);
         System.out.printf("Receipt Total: $%,8.2f\n", receiptTotal);
