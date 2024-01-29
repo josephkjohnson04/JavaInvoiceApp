@@ -7,7 +7,7 @@ import java.util.Scanner;
  *
  * @author <your group programmer names goes here> Jace & Joe
  * @version 1.0 <update this to version 2>
- * @link <Your GitHub Repository URL goes here>
+ * @link https://github.com/josephkjohnson04/JavaInvoiceApp.git
  */
 public class InvoiceApp {
     /**
@@ -130,12 +130,12 @@ public class InvoiceApp {
     } // end of getYesNo method
 
     /**
-     * Print the user's receipt
-     *
-     * @param descriptionList All descriptions for items purchased
-     * @param qtyList         All qualities for items purchased
-     * @param priceList       All prices for items purchased
+     * determine if the customer gets a discount
+     * determine discountPercent based on subTotal
+     * @param subTotal price for each set of items
+     * @return discountPercent
      */
+
     private static double getDiscountPercent(double subTotal) {
         double discountPercent;
         if (subTotal >= 50.0) {
@@ -154,6 +154,14 @@ public class InvoiceApp {
         return discountPercent;
     }
 
+    /**
+     * Print the user's receipt
+     *
+     * @param descriptionList All descriptions for items purchased
+     * @param qtyList         All qualities for items purchased
+     * @param priceList       All prices for items purchased
+     */
+
     private static void printReceipt(List<String> descriptionList, List<Integer> qtyList, List<Double> priceList) {
         String description = "?";
         int qty = 0;
@@ -162,6 +170,8 @@ public class InvoiceApp {
         double subTotal = 0.0;
         double receiptTotal = 0.0;
         double savingsTotal = 0.0;
+        double discountPercent = 0.0;   //Percent discount on items cost
+        double discountAmount = 0.0;    //Amount discounted off the items
 
         System.out.println(InvoiceApp.DOUBLE_DASH_LINE);
         System.out.println("Customer Receipt");
@@ -178,10 +188,10 @@ public class InvoiceApp {
             System.out.println();
             System.out.printf("%-20s  %3d  @  $%,6.2f = $%,8.2f\n", description, qty, price, subTotal);
 
-            double discountPercent = getDiscountPercent(subTotal);
+            discountPercent = getDiscountPercent(subTotal);
 
             if (discountPercent > 0.0) {
-                double discountAmount = subTotal * discountPercent;
+                discountAmount = subTotal * discountPercent;
                 System.out.printf("Discount: %.0f%% = -$%,.2f\n", discountPercent * 100, discountAmount);
                 savingsTotal += discountAmount;
             }
