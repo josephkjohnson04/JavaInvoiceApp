@@ -176,8 +176,10 @@ public class InvoiceApp {
         double subTotal = 0.0;
         double receiptTotal = 0.0;
         double savingsTotal = 0.0;
-        double discountPercent = getDiscountPercent(subTotal);   //Percent discount on items cost
+        double discountPercent = 0.0;   //Percent discount on items cost
         double discountAmount = 0.0;    //Amount discounted off the items
+
+
 
         System.out.println(InvoiceApp.DOUBLE_DASH_LINE);
         System.out.println("Customer Receipt");
@@ -194,6 +196,7 @@ public class InvoiceApp {
             System.out.println();
             System.out.printf("%-20s  %3d  @  $%,6.2f = $%,8.2f\n", description, qty, price, subTotal);
 
+            discountPercent = getDiscountPercent(subTotal);
 
             if (discountPercent > 0.0) {
                 discountAmount = subTotal * discountPercent;
