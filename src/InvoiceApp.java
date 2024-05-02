@@ -5,9 +5,9 @@ import java.util.Scanner;
 /**
  * Represents an Invoice Calculator.
  *
- * @author <your group programmer names goes here>
- * @version 1.0 <update this to version 2>
- * @link <Your GitHub Repository URL goes here>
+ * @author  Jace & Joe
+ * @version 2.0
+ * @link https://github.com/josephkjohnson04/JavaInvoiceApp.git
  */
 public class InvoiceApp {
     /**
@@ -57,6 +57,7 @@ public class InvoiceApp {
      * @param prompt Input label to display
      * @return User input as a double
      */
+
     private static int getInteger(String prompt) {
         String userInput = "?";
         int validInput = 0;
@@ -83,6 +84,7 @@ public class InvoiceApp {
      * @param prompt Input label to display
      * @return User input as a string
      */
+
     private static String getString(String prompt) {
         String userInput = "?";
 
@@ -102,10 +104,10 @@ public class InvoiceApp {
 
     /**
      * Get user's input for y/n question
-     *
      * @param prompt Y/N Prompt
      * @return true for y and false for n
      */
+
     private static boolean getYesNo(String prompt) {
         String userInput = "?";
         boolean ynAnswer = false;
@@ -130,18 +132,54 @@ public class InvoiceApp {
     } // end of getYesNo method
 
     /**
+     * determine if the customer gets a discount
+     * determine discountPercent based on subTotal
+     * @param subTotal price for each set of items
+     * @return discountPercent
+     */
+
+    private static double getDiscountPercent(double subTotal) {
+
+        double discountPercent = 0.0;
+
+        if (subTotal >= 50.0) {
+            discountPercent = 0.25;
+        }
+        else if (subTotal >= 40.0) {
+            discountPercent = 0.20;
+        }
+        else if (subTotal >= 30.0) {
+            discountPercent = 0.15;
+        }
+        else if (subTotal >= 20.0) {
+            discountPercent = 0.10;
+        }
+        else if (subTotal >= 10.0) {
+            discountPercent = 0.05;
+        }
+        else {
+            discountPercent = 0.00;
+        }
+        return discountPercent;
+    }
+
+    /**
      * Print the user's receipt
      * @param descriptionList All descriptions for items purchased
-     * @param qtyList All qualities for items purchased
-     * @param priceList All prices for items purchased
+     * @param qtyList         All qualities for items purchased
+     * @param priceList       All prices for items purchased
      */
+
     private static void printReceipt(List<String> descriptionList, List<Integer> qtyList, List<Double> priceList) {
         String description = "?";
         int qty = 0;
-        double price = 0.0;
 
+        double price = 0.0;
         double subTotal = 0.0;
         double receiptTotal = 0.0;
+        double savingsTotal = 0.0;
+        double discountPercent = 0.0;   //Percent discount on items cost
+        double discountAmount = 0.0;    //Amount discounted off the items
 
         System.out.println(InvoiceApp.DOUBLE_DASH_LINE);
         System.out.println("Customer Receipt");
@@ -158,12 +196,24 @@ public class InvoiceApp {
             System.out.println();
             System.out.printf("%-20s  %3d  @  $%,6.2f = $%,8.2f\n", description, qty, price, subTotal);
 
+            discountPercent = InvoiceApp.getDiscountPercent(subTotal);
+
+            if (discountPercent > 0.0) {
+                discountAmount = subTotal * discountPercent;
+                System.out.printf("           Discount %5.0f    -$%6.2f = $%,8.2f\n", discountPercent * 100, discountAmount, subTotal - discountAmount);
+            }
+
             receiptTotal += subTotal;
 
-        } // end of for lop
+        } // end of for loop
+
+        savingsTotal = discountAmount;
 
         System.out.println(InvoiceApp.SINGLE_DASH_LINE);
-        System.out.printf("Receipt Total: $%,8.2f\n", receiptTotal);
+        if (savingsTotal > 0.0) {
+            System.out.printf("Total Savings: $%,8.2f\n", savingsTotal);
+        }
+        System.out.printf("Receipt Total: $%,8.2f\n", receiptTotal - savingsTotal);
         System.out.println(InvoiceApp.SINGLE_DASH_LINE);
 
     } // end of printReceipt method
@@ -211,7 +261,7 @@ public class InvoiceApp {
 
         InvoiceApp.printReceipt(descriptionList, qtyList, priceList);
 
-        System.out.println("Thank you for shopping with us!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println("Thank you for shopping with us!");
 
     } // end of main method
 
