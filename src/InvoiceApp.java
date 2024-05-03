@@ -57,7 +57,6 @@ public class InvoiceApp {
      * @param prompt Input label to display
      * @return User input as a double
      */
-
     private static int getInteger(String prompt) {
         String userInput = "?";
         int validInput = 0;
@@ -84,7 +83,6 @@ public class InvoiceApp {
      * @param prompt Input label to display
      * @return User input as a string
      */
-
     private static String getString(String prompt) {
         String userInput = "?";
 
@@ -107,7 +105,6 @@ public class InvoiceApp {
      * @param prompt Y/N Prompt
      * @return true for y and false for n
      */
-
     private static boolean getYesNo(String prompt) {
         String userInput = "?";
         boolean ynAnswer = false;
